@@ -1,1 +1,16 @@
-[{"title":"errr"},{"title":"wadus"},{"title":"wadus"},{"title":"wadus"},{"title":"new one"},{"title":"wadus"},{"title":"liam"},{"title":"gato"},{"title":"little"},{"title":"nono"},{"title":"kiki"},{"title":"new title"}]
+[
+  {
+    "id": "1",
+    "title": "wadus",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png",
+    "description": "Parse incoming request bodies in a middleware before your handlers, available under the req.body property.",
+    "price": "12"
+  },
+  {
+    "id": "2",
+    "title": "new title",
+    "imageUrl": "https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png",
+    "description": "kddkdkkdkdkkd",
+    "price": "12.24"
+  }
+]
