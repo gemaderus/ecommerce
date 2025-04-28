@@ -3,7 +3,23 @@
 
 </head>
 <main>
-  <h2>Soy el cart</h2>
+    <% if(products.length > 0) { %>
+      <h1>Products in Cart</h1>
+      <ul>
+      <% products.forEach(p => { %> 
+        <li>
+          <h2><%= p.productData.title %> (<%= p.qty %>)</h2>
+          <p>Price: $<%= p.productData.price %></p>
+          <p>Quantity: <%= p.qty %></p>
+        
+        </li>
+      <% }) %>
+      </ul>
+
+    <% } else { %>
+      <h1>No products in Cart</h1>
+    <% } %> 
+
 </main>
 
 <%- include("../includes/end.ejs") %>
