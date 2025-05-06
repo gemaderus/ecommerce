@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const expresHbs = require("express-handlebars");
 const productsController = require("./controllers/error");
+const sequelize = require("./util/database");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -31,4 +32,12 @@ app.use(shopRoutes);
 
 app.use(productsController.get404);
 
-app.listen(8080);
+sequelize
+  .sync() // { force: true } will drop the table if it exists
+  .then((result) => {
+    console.log(result);
+    app.listen(8080);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
