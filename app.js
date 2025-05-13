@@ -5,6 +5,10 @@ const productsController = require("./controllers/error");
 const sequelize = require("./util/database");
 const Product = require("./models/product");
 const User = require("./models/user");
+const Cart = require("./models/cart");
+const CartItem = require("./models/cart-item");
+const Order = require("./models/order");
+const OrderItem = require("./models/order-item");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -50,8 +54,17 @@ app.use(shopRoutes);
 
 app.use(productsController.get404);
 
+// Define associations
 Product.belongsTo(User, { constraints: true, onDelete: "CASCADE" });
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, { through: OrderItem });
+Product.belongsToMany(Order, { through: OrderItem });
 
 sequelize
   .sync() // { force: true } will drop the table if it exists
@@ -64,8 +77,13 @@ sequelize
   })
   .then((user) => {
     console.log("User created or fetched:", user);
-    app.listen(8080);
+    return user.createCart();
+  })
+  .then(() => {
+    console.log("Server is running on port 8080");
   })
   .catch((err) => {
     console.error("Error during database initialization:", err);
   });
+
+app.listen(8080);
